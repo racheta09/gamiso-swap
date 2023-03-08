@@ -26,11 +26,12 @@ contract Swap is Context, ReentrancyGuard, Ownable {
     event BUSDExchanged(address indexed beneficiary, uint256 busdAmount);
     event RateChanged(uint256 rate);
 
-    constructor(address busd_, address erc, address wallet_) {
-        BUSD = IERC20(busd_); 
+    // constructor(address busd_, address erc, address wallet_) {
+    constructor() {
+        BUSD = IERC20(0xea9579a69EbD08217926B364E8c8de513FDf8E23); 
         _rate = 10;
-        _wallet = payable(wallet_);
-        _token = IERC20(erc);
+        _wallet = payable(0x7605976acB4E9B7B688025831d2405cA6A7cAD6f);
+        _token = IERC20(0x7c19bC82119F535Ee18b759aAE81d4b5D95E4d3d);
         _fees = 20;
         _end = false;
     }
@@ -54,14 +55,14 @@ contract Swap is Context, ReentrancyGuard, Ownable {
         return amount.mul(_rate).div(100);
     }
 
-    function _preValidatePurchase(address beneficiary, uint256 tokens)
+    function _preValidatePurchase(address beneficiary, uint256 busdAmount)
         internal
         view
     {
         require(!_end, "Sale Ended");
         require(beneficiary != address(0), "Buyer is the zero address");
-        require(tokens != 0, "Sale token amount is 0");
-        require(remainingBusd() >= tokens, "Less BUSD remaining");
+        require(busdAmount != 0, "Sale token amount is 0");
+        require(remainingBusd() >= busdAmount, "Less BUSD remaining");
     }
 
     function _processPurchase(address beneficiary, uint256 busdAmount)
