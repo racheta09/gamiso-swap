@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Context.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
-contract Swap is Context, ReentrancyGuard, Ownable {
+contract GamisoSwap is Context, ReentrancyGuard, Ownable {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
@@ -19,8 +19,8 @@ contract Swap is Context, ReentrancyGuard, Ownable {
     uint256 private _busdSold;
     uint256 private _fees;
     bool private _end;
-    IERC20 BUSD;
-    // IERC20 BUSD = IERC20(0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56); //Mainnet
+    // IERC20 BUSD;
+    IERC20 BUSD = IERC20(0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56); //Mainnet
     // IERC20 BUSD = IERC20(0xE0dFffc2E01A7f051069649aD4eb3F518430B6a4); // Testnet
 
     event BUSDExchanged(address indexed beneficiary, uint256 busdAmount);
@@ -28,10 +28,10 @@ contract Swap is Context, ReentrancyGuard, Ownable {
 
     // constructor(address busd_, address erc, address wallet_) {
     constructor() {
-        BUSD = IERC20(0xea9579a69EbD08217926B364E8c8de513FDf8E23); 
-        _rate = 10;
-        _wallet = payable(0x7605976acB4E9B7B688025831d2405cA6A7cAD6f);
-        _token = IERC20(0x7c19bC82119F535Ee18b759aAE81d4b5D95E4d3d);
+        // BUSD = IERC20(0xea9579a69EbD08217926B364E8c8de513FDf8E23); 
+        _rate = 11;
+        _wallet = payable(0x6800723F8B79F94129F1F35a54d21c776e244AF0);
+        _token = IERC20(0x44eED676e0a7bD35f205E2Ed37cd23EDD6451744);
         _fees = 20;
         _end = false;
     }

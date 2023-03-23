@@ -46,14 +46,14 @@ export default function NavBar() {
                                     <Image
                                         className="block h-8 w-auto lg:hidden"
                                         src="/logo.png"
-                                        alt="Tauras Lottery"
+                                        alt=""
                                         width="256"
                                         height="256"
                                     />
                                     <Image
                                         className="hidden h-8 w-auto lg:block"
                                         src="/logo.png"
-                                        alt="Tauras Lottery"
+                                        alt=""
                                         width="256"
                                         height="256"
                                     />

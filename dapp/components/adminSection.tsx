@@ -4,18 +4,72 @@ import millify from "millify"
 
 interface AdminSectionProps {
     swapContractAddress: string
+    busdContractAddress: string
 }
 
 export default function AdminSection({
     swapContractAddress,
+    busdContractAddress,
 }: AdminSectionProps) {
-    const [formData, setFormData] = useState({ fees: "", rate: "", end: "" })
+    const [formData, setFormData] = useState({
+        busd: "",
+        fees: "",
+        rate: "",
+        end: "",
+    })
     const { data: swapContract } = useContract(swapContractAddress)
     const { data: busdSold } = useContractRead(swapContract, "busdSold")
+    const { data: remainingBusd } = useContractRead(
+        swapContract,
+        "remainingBusd"
+    )
+    const { data: tokenBalance } = useContractRead(swapContract, "tokenBalance")
+    const { data: rate } = useContractRead(swapContract, "rate")
     return (
         <div className="flex flex-col justify-center gap-1">
             <h1 className="text-3xl text-center m-2 p-2"> Admin Function</h1>
-            <h4 className="text-xl text-center m-2 p-2"> BUSD Sold: { millify(busdSold*10**-18)}</h4>
+            <h4 className="text-xl text-center m-2 p-2">Rate: {rate / 100}</h4>
+            <h4 className="text-xl text-center m-2 p-2">
+                BUSD Sold: {millify(busdSold * 10 ** -18)}
+            </h4>
+            <h4 className="text-xl text-center m-2 p-2">
+                BUSD Remaining: {millify(remainingBusd * 10 ** -18)}
+            </h4>
+            <h4 className="text-xl text-center m-2 p-2">
+                Token Balance: {millify(tokenBalance * 10 ** -18)}
+            </h4>
+            <Web3Button
+                contractAddress={swapContractAddress}
+                action={(contract) => {
+                    contract.call("withdrawTokens")
+                }}
+            >
+                Withdraw Tokens
+            </Web3Button>
+            <label htmlFor="busd" className="m-2 p-2">
+                BUSD Amount:
+            </label>
+            <input
+                type="text"
+                name="amount"
+                value={formData.busd}
+                onChange={(e) =>
+                    setFormData({ ...formData, busd: e.target.value })
+                }
+                className="rounded m-2 p-2 text-black"
+            />
+            <Web3Button
+                contractAddress={busdContractAddress}
+                action={(contract) => {
+                    contract.call(
+                        "approve",
+                        swapContractAddress,
+                        parseInt(formData.busd).toString()
+                    )
+                }}
+            >
+                Approve BUSD
+            </Web3Button>
             <label htmlFor="fees" className="m-2 p-2">
                 Fees (20 is 0.20%):
             </label>
@@ -37,7 +91,7 @@ export default function AdminSection({
                 Set Fees
             </Web3Button>
             <label htmlFor="rate" className="m-2 p-2">
-                Rate (in cents):
+                Rate (in Cents):
             </label>
             <input
                 type="text"
@@ -77,15 +131,6 @@ export default function AdminSection({
                 }}
             >
                 Set End
-            </Web3Button>
-
-            <Web3Button
-                contractAddress={swapContractAddress}
-                action={(contract) => {
-                    contract.call("wihdrawTokens")
-                }}
-            >
-                Withdraw Tokens
             </Web3Button>
         </div>
     )

@@ -1,17 +1,14 @@
 import Head from "next/head"
 import { useContractRead, useContract, useAddress } from "@thirdweb-dev/react"
 
-import EnterLottery from "@/components/enterLottery"
-import ClaimReward from "@/components/swap"
 import AdminSection from "@/components/adminSection"
 import NavBar from "@/components/navBar"
 import Swap from "@/components/swap"
 
 export default function Home() {
     const address = useAddress()
-    const busdAddress = "0xea9579a69EbD08217926B364E8c8de513FDf8E23"
-    const tokenAddress = "0x7c19bC82119F535Ee18b759aAE81d4b5D95E4d3d"
-    const swapContractAddress = "0x6D5d8febeDd57E41BF657dBdC4d3296C550FC6c9"
+    const busdAddress = "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56"
+    const swapContractAddress = "0xE66865eece8c92cedbb62f381Cb0a88486069B52"
     const { data: swapContract } = useContract(swapContractAddress)
     const { data: owner } = useContractRead(swapContract, "owner")
     const { data: rate } = useContractRead(swapContract, "rate")
@@ -20,7 +17,7 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>BUSD Swap</title>
+                <title>Gamiso Swap</title>
                 <meta name="description" content="Binance Smart Chain Swap" />
                 <meta
                     name="viewport"
@@ -32,17 +29,26 @@ export default function Home() {
             <main className="flex flex-col m-2 p-2 align-middle justify-center">
                 <div className="bg-slate-700 m-2 p-2 rounded-xl">
                     <h1 className="text-4xl text-center m-2 p-2">
-                        Welcome to The BUSD Swap Dapp
+                        Welcome to The Gamiso Swap Dapp
                     </h1>
-                    <h4 className="text-xl text-center m-2 p-2">Rate: {rate && rate.toString()} : 1</h4>
-                    <Swap
-                        swapContractAddress={swapContractAddress}
-                        rate={rate}
-                    />
+                    <h4 className="text-xl text-center m-2 p-2">
+                        Rate: ${rate && rate/100}
+                    </h4>
+                    {ended ? (
+                        <h2 className="text2xl text-center m-2 p-2">
+                            Swap Ended
+                        </h2>
+                    ) : (
+                        <Swap
+                            swapContractAddress={swapContractAddress}
+                            rate={rate}
+                        />
+                    )}
 
                     {owner && owner == address ? (
                         <AdminSection
                             swapContractAddress={swapContractAddress}
+                            busdContractAddress={busdAddress}
                         />
                     ) : (
                         ""
