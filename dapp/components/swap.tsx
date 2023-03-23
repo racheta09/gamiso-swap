@@ -73,23 +73,3 @@ export default function Swap({ swapContractAddress, rate }: SwapProps) {
         </div>
     )
 }
-
-function GetWinner({ i, swapContractAddress }: GetWinnerProps) {
-    const { data: lotcontract } = useContract(swapContractAddress)
-    const { data: winnerIndex } = useContractRead(
-        lotcontract,
-        "winnerIndexes",
-        i.toString()
-    )
-    const { data: winner } = useContractRead(
-        lotcontract,
-        "winnerAddresses",
-        winnerIndex
-    )
-    console.log(winnerIndex, winner)
-    return (
-        <>
-            <div className="text-xl">{winner && winner.toString()}</div>
-        </>
-    )
-}
