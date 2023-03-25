@@ -64,7 +64,7 @@ export default function AdminSection({
                     contract.call(
                         "approve",
                         swapContractAddress,
-                        parseInt(formData.busd).toString()
+                        (parseInt(formData.busd)*10**18).toString()
                     )
                 }}
             >
