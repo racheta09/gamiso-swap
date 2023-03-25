@@ -32,7 +32,7 @@ export default function Home() {
                         Welcome to The Gamiso Swap Dapp
                     </h1>
                     <h4 className="text-xl text-center m-2 p-2">
-                        Rate: ${rate && rate/100}
+                        Current Gamiso Rate: ${rate && rate/100}
                     </h4>
                     {ended ? (
                         <h2 className="text2xl text-center m-2 p-2">
