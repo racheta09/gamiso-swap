@@ -274,14 +274,14 @@ export default function Swap({ swapContractAddress, rate }: SwapProps) {
                 Swap Gamiso to BUSD
             </h1>
             <div className="flex flex-col justify-center">
-                <label htmlFor="amount" className="m-2 p-2">
+                <p className="m-2 p-2">
                     Amount:{" "}
                     {`${millify(
                         (parseInt(amount) * parseInt(rate)) / 100
                     )} BUSD `}
                     Balance: {`${tokenBalance / 1e18} ${symbol}`}
-                </label>
-                <p className="m-2 p-2">Enter amount of Gamiso to sell</p>
+                    Enter amount of Gamiso to sell
+                </p>
                 <input
                     type="text"
                     name="amount"
