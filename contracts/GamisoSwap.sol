@@ -20,7 +20,8 @@ contract GamisoSwap is Context, ReentrancyGuard, Ownable {
     uint256 private _fees;
     bool private _end;
     // IERC20 BUSD;
-    IERC20 BUSD = IERC20(0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56); //Mainnet
+    // IERC20 BUSD = IERC20(0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56); //Mainnet
+    IERC20 USDT = IERC20(0x55d398326f99059fF775485246999027B3197955); //Mainnet
     // IERC20 BUSD = IERC20(0xE0dFffc2E01A7f051069649aD4eb3F518430B6a4); // Testnet
 
     event BUSDExchanged(address indexed beneficiary, uint256 busdAmount);
@@ -72,7 +73,7 @@ contract GamisoSwap is Context, ReentrancyGuard, Ownable {
     }
 
     function _deliverBUSD(address beneficiary, uint256 busdAmount) internal {
-        BUSD.safeTransferFrom(_wallet, beneficiary, busdAmount);
+        USDT.safeTransferFrom(_wallet, beneficiary, busdAmount);
         _busdSold = _busdSold.add(busdAmount);
     }
 
@@ -120,6 +121,6 @@ contract GamisoSwap is Context, ReentrancyGuard, Ownable {
     }
 
     function remainingBusd() public view returns (uint256) {
-        return BUSD.allowance(_wallet, address(this));
+        return USDT.allowance(_wallet, address(this));
     }
 }

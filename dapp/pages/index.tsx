@@ -7,7 +7,7 @@ import Swap from "@/components/swap"
 
 export default function Home() {
     const address = useAddress()
-    const busdAddress = "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56"
+    const busdAddress = "0x55d398326f99059fF775485246999027B3197955" // USDT Address
     const swapContractAddress = "0xE66865eece8c92cedbb62f381Cb0a88486069B52"
     const { data: swapContract } = useContract(swapContractAddress)
     const { data: owner } = useContractRead(swapContract, "owner")

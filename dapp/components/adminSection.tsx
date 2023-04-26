@@ -30,10 +30,10 @@ export default function AdminSection({
             <h1 className="text-3xl text-center m-2 p-2"> Admin Function</h1>
             <h4 className="text-xl text-center m-2 p-2">Rate: {rate / 100}</h4>
             <h4 className="text-xl text-center m-2 p-2">
-                BUSD Sold: {millify(busdSold * 10 ** -18)}
+                USDT Sold: {millify(busdSold * 10 ** -18)}
             </h4>
             <h4 className="text-xl text-center m-2 p-2">
-                BUSD Remaining: {millify(remainingBusd * 10 ** -18)}
+                USDT Remaining: {millify(remainingBusd * 10 ** -18)}
             </h4>
             <h4 className="text-xl text-center m-2 p-2">
                 Token Balance: {millify(tokenBalance * 10 ** -18)}
@@ -47,7 +47,7 @@ export default function AdminSection({
                 Withdraw Tokens
             </Web3Button>
             <label htmlFor="busd" className="m-2 p-2">
-                BUSD Amount:
+                USDT Amount:
             </label>
             <input
                 type="text"
@@ -68,7 +68,7 @@ export default function AdminSection({
                     )
                 }}
             >
-                Approve BUSD
+                Approve USDT
             </Web3Button>
             <label htmlFor="fees" className="m-2 p-2">
                 Fees (20 is 0.20%):
