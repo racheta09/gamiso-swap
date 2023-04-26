@@ -46,6 +46,7 @@ export default function Swap({ swapContractAddress, rate }: SwapProps) {
                         (parseInt(amount) * parseInt(rate)) / 100
                     )} USDT `}
                     Balance: {`${tokenBalance / 1e18} ${symbol}`}
+                    <br />
                     Enter amount of Gamiso to sell
                 </p>
                 <input
