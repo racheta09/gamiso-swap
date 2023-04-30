@@ -56,32 +56,29 @@ export default function Swap({ swapContractAddress, rate }: SwapProps) {
                     onChange={(e) => setAmount(e.target.value)}
                     className="rounded m-2 p-2 text-black"
                 />
-                {tokenAllowance < parseFloat(amount) * 10 ** 18 ? (
-                    <Web3Button
-                        contractAddress={tokenAddress}
-                        action={(contract) => {
-                            contract.call(
-                                "approve",
-                                swapContractAddress,
-                                (parseFloat(amount) * 10 ** 18).toString()
-                            )
-                        }}
-                    >
-                        Approve Token
-                    </Web3Button>
-                ) : (
-                    <Web3Button
-                        contractAddress={swapContractAddress}
-                        action={(contract) => {
-                            contract.call(
-                                "swapToBUSD",
-                                (parseFloat(amount) * 10 ** 18).toString()
-                            )
-                        }}
-                    >
-                        Swap to USDT
-                    </Web3Button>
-                )}
+                <Web3Button
+                    contractAddress={tokenAddress}
+                    action={(contract) => {
+                        contract.call(
+                            "approve",
+                            swapContractAddress,
+                            (parseFloat(amount) * 10 ** 18).toString()
+                        )
+                    }}
+                >
+                    Approve Token
+                </Web3Button>
+                <Web3Button
+                    contractAddress={swapContractAddress}
+                    action={(contract) => {
+                        contract.call(
+                            "swapToBUSD",
+                            (parseFloat(amount) * 10 ** 18).toString()
+                        )
+                    }}
+                >
+                    Swap to USDT
+                </Web3Button>
             </div>
         </div>
     )
